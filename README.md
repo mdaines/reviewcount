@@ -1,4 +1,4 @@
-![screenshot](https://github.com/user-attachments/assets/ee107c3c-a1aa-46b0-8a8a-b961f6538a74)
+<img src="https://github.com/user-attachments/assets/ee107c3c-a1aa-46b0-8a8a-b961f6538a74" width="266" height="193">
 
 ReviewCount
 ===========
