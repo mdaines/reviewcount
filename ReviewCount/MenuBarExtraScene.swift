@@ -90,6 +90,10 @@ struct MenuBarExtraScene: Scene {
                 Text("Reviews Available Now")
             }
 
+            Button("Check Review Count") {
+                model.reload()
+            }
+
             Divider()
         }
     }
