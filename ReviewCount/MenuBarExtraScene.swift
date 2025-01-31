@@ -10,7 +10,7 @@ struct MenuBarExtraScene: Scene {
 
     var body: some Scene {
         MenuBarExtra {
-            ReviewCountStatusView(reviewCountInfo: model.reviewCountInfo)
+            reviewCountStatus()
 
             Button("Start Reviews", action: startReviews)
 
@@ -27,12 +27,12 @@ struct MenuBarExtraScene: Scene {
                 NSApplication.shared.terminate(nil)
             }
         } label: {
-            TurtleView(reviewCountInfo: model.reviewCountInfo)
-                .onAppear {
-                    if !Credentials.hasToken {
-                        openSettingsAndActivate()
-                    }
+            turtle()
+            .onAppear {
+                if !Credentials.hasToken {
+                    openSettingsAndActivate()
                 }
+            }
         }
 
         Settings {
@@ -48,5 +48,49 @@ struct MenuBarExtraScene: Scene {
     private func openSettingsAndActivate() {
         openSettings()
         NSApp.activate(ignoringOtherApps: true)
+    }
+
+    @ViewBuilder func turtle() -> some View {
+        Image(systemName: "tortoise.fill")
+
+        switch model.reviewCountInfo {
+        case .none:
+            EmptyView()
+        case .error:
+            Text("!")
+        case .reviews(let availableSubjectIds, _):
+            Text(availableSubjectIds.count, format: .number)
+        }
+    }
+
+    @ViewBuilder
+    private func reviewCountStatus() -> some View {
+        switch model.reviewCountInfo {
+        case .none:
+            EmptyView()
+        case .error(let error):
+            Text("Error Checking Review Count")
+
+            Text(verbatim: error.localizedDescription)
+                .font(.caption)
+
+            Button("Check Review Count") {
+                model.reload()
+            }
+
+            Divider()
+        case .reviews(let availableSubjectIds, let nextReviewsAt):
+            if availableSubjectIds.count == 0 {
+                if let nextReviewsAt {
+                    Text("Next Reviews: \(nextReviewsAt, format: .dateTime)")
+                } else {
+                    Text("No Reviews Scheduled")
+                }
+            } else {
+                Text("Reviews Available Now")
+            }
+
+            Divider()
+        }
     }
 }

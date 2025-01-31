@@ -9,9 +9,9 @@ fileprivate let regularSleepDuration: TimeInterval = 5 * 60
 fileprivate let fallbackSleepDuration: TimeInterval = 15 * 60
 fileprivate let recentActivityDuration: TimeInterval = 5 * 60
 
-enum ReviewCountInfo: Equatable {
+enum ReviewCountInfo {
     case none
-    case error
+    case error(Error)
     case reviews(availableSubjectIds: Set<Int>, nextReviewsAt: Date?)
 
     init(summaryInfo: SummaryInfo) {
@@ -134,7 +134,7 @@ class ReviewCountModel: ObservableObject {
         }
     }
 
-    private func reload() {
+    func reload() {
         reviewCountTask?.cancel()
 
         reviewCountTask = Task {
@@ -216,17 +216,17 @@ class ReviewCountModel: ObservableObject {
 
             if let urlError = error as? URLError {
                 if urlError.code == .notConnectedToInternet {
-                    return (.error, .none)
+                    return (.error(error), .none)
                 }
             }
 
             if let waniKaniError = error as? WaniKaniError {
                 if case .unauthorizedError = waniKaniError {
-                    return (.error, .none)
+                    return (.error(error), .none)
                 }
             }
 
-            return (.error, .fallback)
+            return (.error(error), .fallback)
         }
     }
 }
