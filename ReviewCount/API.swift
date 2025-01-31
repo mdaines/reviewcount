@@ -15,6 +15,21 @@ enum WaniKaniError: Error {
     case responseError(code: Int, message: String)
 }
 
+extension WaniKaniError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .unexpectedResponseClassError, .responseError:
+            return "The server returned an error response."
+
+        case .unauthorizedError:
+            return "Invalid API token."
+
+        case .parseError:
+            return "Couldn’t parse the response from the server."
+        }
+    }
+}
+
 func loadWaniKaniEndpoint(url: URL, apiToken: String) async throws -> [String: Any] {
     var request = URLRequest(url: url)
     request.setValue("Bearer \(apiToken)", forHTTPHeaderField: "Authorization")

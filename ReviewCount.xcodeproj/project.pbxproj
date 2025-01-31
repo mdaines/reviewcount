@@ -11,6 +11,16 @@
 		348DFBCF2D483B1800E2B5CB /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 348DFBCE2D483B1800E2B5CB /* Sparkle */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		34BDCF7A2D4D240B009B8029 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 34F33BC42CE8F19900358F3A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 34F33BCB2CE8F19900358F3A;
+			remoteInfo = ReviewCount;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		3411C9FD2D42C93B0036DC19 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -35,6 +45,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		34BDCF762D4D240B009B8029 /* ReviewCountTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReviewCountTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		34F33BCC2CE8F19900358F3A /* ReviewCount.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReviewCount.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -49,6 +60,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		34BDCF772D4D240B009B8029 /* ReviewCountTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ReviewCountTests;
+			sourceTree = "<group>";
+		};
 		34F33BCE2CE8F19900358F3A /* ReviewCount */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -60,6 +76,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		34BDCF732D4D240B009B8029 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		34F33BC92CE8F19900358F3A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -76,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				34F33BCE2CE8F19900358F3A /* ReviewCount */,
+				34BDCF772D4D240B009B8029 /* ReviewCountTests */,
 				34F33BCD2CE8F19900358F3A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -84,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				34F33BCC2CE8F19900358F3A /* ReviewCount.app */,
+				34BDCF762D4D240B009B8029 /* ReviewCountTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -91,6 +116,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		34BDCF752D4D240B009B8029 /* ReviewCountTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34BDCF7C2D4D240B009B8029 /* Build configuration list for PBXNativeTarget "ReviewCountTests" */;
+			buildPhases = (
+				34BDCF722D4D240B009B8029 /* Sources */,
+				34BDCF732D4D240B009B8029 /* Frameworks */,
+				34BDCF742D4D240B009B8029 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				34BDCF7B2D4D240B009B8029 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				34BDCF772D4D240B009B8029 /* ReviewCountTests */,
+			);
+			name = ReviewCountTests;
+			packageProductDependencies = (
+			);
+			productName = ReviewCountTests;
+			productReference = 34BDCF762D4D240B009B8029 /* ReviewCountTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		34F33BCB2CE8F19900358F3A /* ReviewCount */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 34F33BDB2CE8F19A00358F3A /* Build configuration list for PBXNativeTarget "ReviewCount" */;
@@ -127,6 +175,10 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					34BDCF752D4D240B009B8029 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 34F33BCB2CE8F19900358F3A;
+					};
 					34F33BCB2CE8F19900358F3A = {
 						CreatedOnToolsVersion = 16.1;
 					};
@@ -151,11 +203,19 @@
 			projectRoot = "";
 			targets = (
 				34F33BCB2CE8F19900358F3A /* ReviewCount */,
+				34BDCF752D4D240B009B8029 /* ReviewCountTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		34BDCF742D4D240B009B8029 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		34F33BCA2CE8F19900358F3A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -166,6 +226,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		34BDCF722D4D240B009B8029 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		34F33BC82CE8F19900358F3A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -175,7 +242,61 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		34BDCF7B2D4D240B009B8029 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 34F33BCB2CE8F19900358F3A /* ReviewCount */;
+			targetProxy = 34BDCF7A2D4D240B009B8029 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		34BDCF7D2D4D240B009B8029 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A5VF6CDK3T;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.slowscan.ReviewCountTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReviewCount.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ReviewCount";
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		34BDCF7E2D4D240B009B8029 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A5VF6CDK3T;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.slowscan.ReviewCountTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReviewCount.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ReviewCount";
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
 		34F33BD92CE8F19A00358F3A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -371,6 +492,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		34BDCF7C2D4D240B009B8029 /* Build configuration list for PBXNativeTarget "ReviewCountTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34BDCF7D2D4D240B009B8029 /* Debug */,
+				34BDCF7E2D4D240B009B8029 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		34F33BC72CE8F19900358F3A /* Build configuration list for PBXProject "ReviewCount" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
