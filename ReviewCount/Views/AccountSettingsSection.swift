@@ -40,7 +40,7 @@ struct AccountSettingsSection: View {
                     case .error:
                         Spacer()
 
-                        Text("Couldn't load account information.")
+                        Text("Couldn’t load account information.")
                             .foregroundStyle(.red)
 
                         Button("Try Again", action: loadUserInfo)
