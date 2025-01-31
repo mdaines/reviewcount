@@ -208,23 +208,19 @@ class ReviewCountModel: ObservableObject {
                 return (nextReviewCountInfo, .regular)
             }
         } catch {
-            if error is CancellationError {
-                Self.logger.debug("Cancellation error")
+            Self.logger.error("Error checking reviews: \(error.localizedDescription)")
 
+            if error is CancellationError {
                 return (.none, .none)
             }
 
             if let urlError = error as? URLError {
-                Self.logger.debug("URL error: \(urlError.localizedDescription)")
-
                 if urlError.code == .notConnectedToInternet {
                     return (.error, .none)
                 }
             }
 
             if let waniKaniError = error as? WaniKaniError {
-                Self.logger.debug("WaniKani API error: \(waniKaniError.localizedDescription)")
-
                 if case .unauthorizedError = waniKaniError {
                     return (.error, .none)
                 }
