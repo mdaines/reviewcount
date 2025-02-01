@@ -4,7 +4,7 @@ import Sparkle
 struct MenuBarExtraScene: Scene {
     @EnvironmentObject var model: ReviewCountModel
 
-    @EnvironmentObject var updatesModel: UpdatesModel
+    @EnvironmentObject var updatesModel: UpdaterModel
 
     @Environment(\.openSettings) private var openSettings
 
@@ -17,9 +17,6 @@ struct MenuBarExtraScene: Scene {
             Divider()
 
             Button("ReviewCount Settings…", action: openSettingsAndActivate)
-
-            Button("Check for Updates…", action: updatesModel.checkForUpdates)
-                .disabled(!updatesModel.canCheckForUpdates)
 
             Divider()
 
@@ -50,7 +47,8 @@ struct MenuBarExtraScene: Scene {
         NSApp.activate(ignoringOtherApps: true)
     }
 
-    @ViewBuilder func turtle() -> some View {
+    @ViewBuilder
+    private func turtle() -> some View {
         Image(systemName: "tortoise.fill")
 
         switch model.reviewCountInfo {
@@ -69,14 +67,10 @@ struct MenuBarExtraScene: Scene {
         case .none:
             EmptyView()
         case .error(let error):
-            Text("Error Checking Review Count")
+            Text("Error Checking Reviews")
 
             Text(verbatim: error.localizedDescription)
                 .font(.caption)
-
-            Button("Check Review Count") {
-                model.reload()
-            }
 
             Divider()
         case .reviews(let availableSubjectIds, let nextReviewsAt):
@@ -88,10 +82,6 @@ struct MenuBarExtraScene: Scene {
                 }
             } else {
                 Text("Reviews Available Now")
-            }
-
-            Button("Check Review Count") {
-                model.reload()
             }
 
             Divider()

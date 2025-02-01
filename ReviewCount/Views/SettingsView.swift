@@ -5,6 +5,7 @@ struct SettingsView: View {
         Form {
             AccountSettingsSection()
             LaunchSettingsSection()
+            UpdaterSettingsSection()
         }
         .formStyle(.grouped)
         .frame(maxWidth: 480, minHeight: 240)
