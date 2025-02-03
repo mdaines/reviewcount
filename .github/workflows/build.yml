@@ -7,4 +7,5 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: mxcl/xcodebuild@v3
-        scheme: ReviewCount
+        with:
+          scheme: ReviewCount
