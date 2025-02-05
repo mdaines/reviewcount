@@ -2,6 +2,7 @@ import SwiftUI
 import Network
 import AsyncAlgorithms
 import os
+import ReviewCountModel
 
 fileprivate let minimumSleepDuration: TimeInterval = 1
 fileprivate let fastSleepDuration: TimeInterval = 15

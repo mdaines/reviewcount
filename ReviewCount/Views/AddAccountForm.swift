@@ -1,4 +1,5 @@
 import SwiftUI
+import ReviewCountModel
 
 struct AddAccountForm: View {
     @EnvironmentObject private var model: ReviewCountModel

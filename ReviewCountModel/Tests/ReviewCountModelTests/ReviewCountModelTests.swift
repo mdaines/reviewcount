@@ -1,5 +1,5 @@
 import Testing
-@testable import ReviewCount
+@testable import ReviewCountModel
 
 struct WaniKaniErrorTests {
     @Test func localizedDescription() async throws {
