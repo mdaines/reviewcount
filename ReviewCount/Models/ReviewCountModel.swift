@@ -5,10 +5,7 @@ import os
 import ReviewCountModel
 
 fileprivate let minimumSleepDuration: TimeInterval = 1
-fileprivate let fastSleepDuration: TimeInterval = 15
-fileprivate let regularSleepDuration: TimeInterval = 5 * 60
 fileprivate let fallbackSleepDuration: TimeInterval = 15 * 60
-fileprivate let recentActivityDuration: TimeInterval = 5 * 60
 
 enum ReviewCountInfo {
     case none
@@ -34,33 +31,6 @@ enum ReviewCountInfo {
     }
 }
 
-enum ReloadPolicy: Equatable {
-    case none
-    case nextHour
-    case regular
-    case fast
-    case fallback
-
-    var date: Date? {
-        switch self {
-        case .none:
-            return nil
-
-        case .nextHour:
-            return Calendar.current.nextDate(after: .now.addingTimeInterval(minimumSleepDuration), matching: DateComponents(minute: 0), matchingPolicy: .nextTime)
-
-        case .regular:
-            return Date(timeIntervalSinceNow: regularSleepDuration)
-
-        case .fast:
-            return Date(timeIntervalSinceNow: fastSleepDuration)
-
-        case .fallback:
-            return Date(timeIntervalSinceNow: fallbackSleepDuration)
-        }
-    }
-}
-
 @MainActor
 class ReviewCountModel: ObservableObject {
     private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "ReviewCountModel")
@@ -68,14 +38,12 @@ class ReviewCountModel: ObservableObject {
     @Published private(set) var reviewCountInfo: ReviewCountInfo {
         didSet {
             if reviewCountInfo.hasReviewedSubjects(previous: oldValue) {
-                lastReviewedSubjectsAt = .now
+                lastActivityAt = .now
             }
         }
     }
 
-    private var lastStartReviewsAt: Date?
-
-    private var lastReviewedSubjectsAt: Date?
+    private var lastActivityAt: Date?
 
     private var reviewCountTask: Task<Void, Error>?
 
@@ -90,7 +58,7 @@ class ReviewCountModel: ObservableObject {
     }
 
     func openingStartReviews() {
-        self.lastStartReviewsAt = .now
+        self.lastActivityAt = .now
 
         reload()
     }
@@ -185,29 +153,16 @@ class ReviewCountModel: ObservableObject {
                 Self.logger.debug("Next reviews at \(nextReviewsAt) (\(nextReviewsAt.timeIntervalSinceNow) seconds)")
             }
 
-            if let lastStartReviewsAt {
-                Self.logger.debug("Last opened start reviews at \(lastStartReviewsAt) (\(lastStartReviewsAt.timeIntervalSinceNow) seconds)")
+            if let lastActivityAt {
+                Self.logger.debug("Last activity at \(lastActivityAt) (\(lastActivityAt.timeIntervalSinceNow) seconds)")
             }
 
-            if let lastReviewedSubjectsAt {
-                Self.logger.debug("Last reviewed subjects at \(lastReviewedSubjectsAt) (\(lastReviewedSubjectsAt.timeIntervalSinceNow) seconds)")
-            }
+            let reloadPolicy = ReloadPolicy(
+                nextReviewsAt: summaryInfo.nextReviewsAt,
+                lastActivityAt: lastActivityAt
+            )
 
-            if let nextReviewsAt = summaryInfo.nextReviewsAt, nextReviewsAt > .now {
-                Self.logger.debug("Next reviews are in the future: reloading next hour")
-
-                return (nextReviewCountInfo, .nextHour)
-            } else if let lastStartReviewsAt, lastStartReviewsAt.timeIntervalSinceNow > -recentActivityDuration {
-                Self.logger.debug("Recently opened start reviews: reloading at higher frequency")
-
-                return (nextReviewCountInfo, .fast)
-            } else if let lastReviewedSubjectsAt, lastReviewedSubjectsAt.timeIntervalSinceNow > -recentActivityDuration {
-                Self.logger.debug("Recently reviewed subjects: reloading at higher frequency")
-
-                return (nextReviewCountInfo, .fast)
-            } else {
-                return (nextReviewCountInfo, .regular)
-            }
+            return (nextReviewCountInfo, reloadPolicy)
         } catch {
             Self.logger.error("Error checking reviews: \(error.localizedDescription)")
 
