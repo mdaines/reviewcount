@@ -1,5 +1,4 @@
 import Foundation
-import os
 
 fileprivate let minimumSleepDuration: TimeInterval = 1
 fileprivate let fastSleepDuration: TimeInterval = 15
@@ -8,8 +7,6 @@ fileprivate let fallbackSleepDuration: TimeInterval = 15 * 60
 fileprivate let recentActivityDuration: TimeInterval = 5 * 60
 
 public enum ReloadPolicy: Equatable {
-    private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "ReloadPolicy")
-
     case none
     case nextHour
     case regular
@@ -22,10 +19,8 @@ public enum ReloadPolicy: Equatable {
 
     public init(nextReviewsAt: Date?, lastActivityAt: Date?, since date: Date = .now) {
         if let nextReviewsAt = nextReviewsAt, nextReviewsAt > date {
-            Self.logger.debug("Next reviews are in the future: reloading next hour")
             self = .nextHour
         } else if let lastActivityAt, lastActivityAt.timeIntervalSince(date) > -recentActivityDuration {
-            Self.logger.debug("Recent activity: reloading at higher frequency")
             self = .fast
         } else {
             self = .regular
